@@ -1,25 +1,57 @@
+import { Platform } from 'react-native';
+
 // ============================
 // Wyniki Badań — Theme tokens
 // ============================
 
-export const theme = {
-  // Backgrounds
+export const darkColors = {
   bgApp: '#05060b',
   bgSurface: '#0c0d14',
   bgSurfaceHover: '#14151f',
   bgSurfaceActive: '#1c1d2e',
   bgCard: 'rgba(12, 13, 20, 0.6)',
-
-  // Borders
   borderColor: 'rgba(255, 255, 255, 0.06)',
   borderColorHover: 'rgba(255, 255, 255, 0.12)',
   borderSubtle: 'rgba(255, 255, 255, 0.03)',
-
-  // Typography
   textPrimary: '#eef0f6',
   textSecondary: '#8b8da8',
   textMuted: '#52546e',
   textInverse: '#0d0d13',
+};
+
+export const lightColors = {
+  bgApp: '#f4f5f8',
+  bgSurface: '#ffffff',
+  bgSurfaceHover: '#ebeef5',
+  bgSurfaceActive: '#e4e7ed',
+  bgCard: 'rgba(255, 255, 255, 0.9)',
+  borderColor: 'rgba(0, 0, 0, 0.08)',
+  borderColorHover: 'rgba(0, 0, 0, 0.15)',
+  borderSubtle: 'rgba(0, 0, 0, 0.04)',
+  textPrimary: '#1c1d2e',
+  textSecondary: '#60627a',
+  textMuted: '#909399',
+  textInverse: '#ffffff',
+};
+
+export const theme = {
+  // Backgrounds (use CSS variables on web for instant reactive theme switching)
+  bgApp: Platform.OS === 'web' ? 'var(--bg-app)' : darkColors.bgApp,
+  bgSurface: Platform.OS === 'web' ? 'var(--bg-surface)' : darkColors.bgSurface,
+  bgSurfaceHover: Platform.OS === 'web' ? 'var(--bg-surface-hover)' : darkColors.bgSurfaceHover,
+  bgSurfaceActive: Platform.OS === 'web' ? 'var(--bg-surface-active)' : darkColors.bgSurfaceActive,
+  bgCard: Platform.OS === 'web' ? 'var(--bg-card)' : darkColors.bgCard,
+
+  // Borders
+  borderColor: Platform.OS === 'web' ? 'var(--border-color)' : darkColors.borderColor,
+  borderColorHover: Platform.OS === 'web' ? 'var(--border-color-hover)' : darkColors.borderColorHover,
+  borderSubtle: Platform.OS === 'web' ? 'var(--border-subtle)' : darkColors.borderSubtle,
+
+  // Typography
+  textPrimary: Platform.OS === 'web' ? 'var(--text-primary)' : darkColors.textPrimary,
+  textSecondary: Platform.OS === 'web' ? 'var(--text-secondary)' : darkColors.textSecondary,
+  textMuted: Platform.OS === 'web' ? 'var(--text-muted)' : darkColors.textMuted,
+  textInverse: Platform.OS === 'web' ? 'var(--text-inverse)' : darkColors.textInverse,
 
   // Accents
   accentPrimary: '#7c6cf0',
@@ -79,6 +111,61 @@ export const theme = {
   statusLow: { bg: 'rgba(116,185,255,0.1)', text: '#74b9ff', label: 'Poniżej normy' },
   statusHigh: { bg: 'rgba(255,118,117,0.1)', text: '#ff7675', label: 'Powyżej normy' },
   statusUnknown: { bg: 'rgba(255,255,255,0.05)', text: '#8b8da8', label: 'Brak normy' },
-} as const;
+};
 
-export type Theme = typeof theme;
+export type ThemeMode = 'light' | 'dark' | 'system';
+export type FontMode = 'standard' | 'handwriting';
+
+export function applyTheme(mode: ThemeMode, systemTheme: 'light' | 'dark') {
+  if (Platform.OS !== 'web') return;
+  
+  const resolved = mode === 'system' ? systemTheme : mode;
+  const colors = resolved === 'light' ? lightColors : darkColors;
+  
+  const root = document.documentElement;
+  Object.entries(colors).forEach(([key, value]) => {
+    const cssKey = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+    root.style.setProperty(cssKey, value);
+  });
+}
+
+export function applyFont(fontMode: FontMode) {
+  if (Platform.OS !== 'web') return;
+  
+  const linkId = 'google-fonts-handwriting';
+  if (!document.getElementById(linkId)) {
+    const link = document.createElement('link');
+    link.id = linkId;
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap';
+    document.head.appendChild(link);
+  }
+
+  const styleId = 'app-font-override';
+  let style = document.getElementById(styleId);
+  if (!style) {
+    style = document.createElement('style');
+    style.id = styleId;
+    document.head.appendChild(style);
+  }
+
+  if (fontMode === 'handwriting') {
+    style.textContent = `
+      * {
+        font-family: 'Kalam', 'Caveat', cursive, sans-serif !important;
+      }
+      input, textarea, select, button {
+        font-family: 'Kalam', 'Caveat', cursive, sans-serif !important;
+      }
+    `;
+  } else {
+    style.textContent = `
+      * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+      }
+      input, textarea, select, button {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+      }
+    `;
+  }
+}
