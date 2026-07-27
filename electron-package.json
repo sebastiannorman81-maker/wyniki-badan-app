@@ -1,0 +1,23 @@
+{
+  "name": "wyniki-badan",
+  "version": "1.0.0",
+  "description": "Wyniki Badań — Osobisty Dziennik Zdrowia",
+  "main": "electron/main.js",
+  "author": "sebastiannorman81-maker",
+  "license": "MIT",
+  "build": {
+    "appId": "com.wynikibadan.app",
+    "productName": "Wyniki Badan",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": null
+    }
+  }
+}

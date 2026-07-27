@@ -20,23 +20,17 @@ Zbudowana na bazie **React Native / Expo**, działa wieloplatformowo na systemac
 
 ## 📥 Instrukcja Pobierania i Uruchomienia
 
-### 💻 1. Wersja na Windows (Desktop)
-1. Pobierz spakowaną paczkę aplikacji: [wyniki-badan-app-web.zip](./wyniki-badan-app-web.zip)
-2. Rozpakuj plik zip w dowolnym folderze.
-3. Otwórz plik `dist/index.html` w swojej przeglądarce lub uruchom skrypt desktopowy Electron (`npm run electron`).
+### 💻 1. Wersja na Windows (Program desktopowy .exe)
+* **Gotowy program desktopowy**: Pobierz i rozpakuj `Wyniki-Badan-Windows.zip`. Uruchom plik `Wyniki-Badan.exe` bezpośrednio na komputerze z systemem Windows (bez potrzeby instalowania dodatkowego oprogramowania).
+* Wygenerowana aplikacja webowa offline znajduje się w katalogu `./dist`.
 
 ### 📱 2. Wersja na Android (.apk)
-1. Projekt natywny dla Android Studio znajduje się w katalogu `./android`.
-2. Aby zbudować plik instalacyjny APK:
-   ```bash
-   cd android
-   ./gradlew assembleRelease
-   ```
-3. Gotowy plik `.apk` pojawi się w `android/app/build/outputs/apk/release/app-release.apk`.
+* **Gotowa aplikacja Android**: Pobierz i zainstaluj gotowy plik `Wyniki-Badan-Android.apk` na dowolnym smartfonie lub tablecie z systemem Android.
+* Projekt natywny dla Android Studio znajduje się w katalogu `./android`.
 
 ### 🍏 3. Wersja na iOS (iPhone / iPad)
-1. Projekt natywny Xcode znajduje się w katalogu `./ios`.
-2. Otwórz plik `ios/wynikibadanapp.xcworkspace` na komputerze Mac w programie **Xcode** i kliknij **Build & Run**.
+* Projekt natywny Xcode znajduje się w katalogu `./ios`.
+* Otwórz plik `ios/wynikibadanapp.xcworkspace` na komputerze Mac w programie **Xcode** i kliknij **Build & Run**.
 
 ---
 
