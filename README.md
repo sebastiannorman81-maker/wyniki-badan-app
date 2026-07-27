@@ -18,23 +18,30 @@ Zbudowana na bazie **React Native / Expo**, działa wieloplatformowo na systemac
 
 ---
 
-## 📥 Instrukcja Pobierania i Uruchomienia
+## 📥 Dokładne Ścieżki do Pobrania i Uruchomienia Plików
 
-### 💻 1. Wersja na Windows (Program desktopowy .exe)
-* **Gotowy program desktopowy**: Pobierz i rozpakuj `Wyniki-Badan-Windows.zip`. Uruchom plik `Wyniki-Badan.exe` bezpośrednio na komputerze z systemem Windows (bez potrzeby instalowania dodatkowego oprogramowania).
-* Wygenerowana aplikacja webowa offline znajduje się w katalogu `./dist`.
+### 📱 1. Wersja na Android (Plik instalacyjny APK)
+* **Ścieżka pliku na Pulpicie**: `C:\Users\JA\Desktop\Wyniki-Badan-Android.apk`
+* **Ścieżka wewnątrz projektu (po wygenerowaniu Gradle)**: `C:\Users\JA\Desktop\LOS\wyniki-badan-app\android\app\build\outputs\apk\release\app-release.apk`
+* **Jak uruchomić**: Skopiuj plik `Wyniki-Badan-Android.apk` na swój smartfon/tablet z systemem Android i kliknij go, aby zainstalować aplikację.
 
-### 📱 2. Wersja na Android (.apk)
-* **Gotowa aplikacja Android**: Pobierz i zainstaluj gotowy plik `Wyniki-Badan-Android.apk` na dowolnym smartfonie lub tablecie z systemem Android.
-* Projekt natywny dla Android Studio znajduje się w katalogu `./android`.
+### 💻 2. Wersja na Windows (Program desktopowy .exe)
+* **Ścieżka archiwum ZIP (Pulpit)**: `C:\Users\JA\Desktop\Wyniki-Badan-Windows.zip`
+* **Ścieżka bezpośrednia do pliku .exe**: `C:\Users\JA\Desktop\LOS\wyniki-badan-release\Wyniki-Badan-win32-x64\Wyniki-Badan.exe`
+* **Jak uruchomić**: Rozpakuj plik `Wyniki-Badan-Windows.zip` na Pulpicie i kliknij dwukrotnie w `Wyniki-Badan.exe`, aby uruchomić program bez konieczności instalowania przeglądarek czy serwerów.
 
-### 🍏 3. Wersja na iOS (iPhone / iPad)
-* Projekt natywny Xcode znajduje się w katalogu `./ios`.
-* Otwórz plik `ios/wynikibadanapp.xcworkspace` na komputerze Mac w programie **Xcode** i kliknij **Build & Run**.
+### 🌐 3. Wersja Web Offline (Strona HTML)
+* **Ścieżka archiwum Web (Pulpit/LOS)**: `C:\Users\JA\Desktop\LOS\wyniki-badan-app-web.zip`
+* **Ścieżka pliku startowego HTML**: `C:\Users\JA\Desktop\LOS\wyniki-badan-app\dist\index.html`
+* **Jak uruchomić**: Otwórz plik `index.html` w dowolnej przeglądarce (Chrome, Edge, Firefox, Safari).
+
+### 🍏 4. Wersja na iOS (Projekt Xcode dla komputerów Mac)
+* **Ścieżka pliku projektu Xcode**: `C:\Users\JA\Desktop\LOS\wyniki-badan-app\ios\wynikibadanapp.xcworkspace`
+* **Jak uruchomić**: Otwórz folder `ios/` na komputerze Mac w programie **Xcode**, otwórz plik `.xcworkspace` i kliknij **Build & Run** (cmd + R).
 
 ---
 
-## 🛠️ Uruchomienie Programistyczne (Lokalnie)
+## 🛠️ Uruchomienie Programistyczne (Lokalnie w kodzie)
 
 Wymagane środowisko: **Node.js (v18+)** oraz **npm**.
 
