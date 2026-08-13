@@ -6,37 +6,36 @@ Zbudowana na bazie **React Native / Expo**, działa wieloplatformowo na systemac
 
 ---
 
-## 🚀 SZYBKIE POBIERANIE (Pliki Instalacyjne z Repozytorium)
+## 📥 POBIERZ GOTOWE PLIKIALBO INSTALATORY Z GITHUBA
 
-Możesz pobrać gotowe pliki instalacyjne bezpośrednio z repozytorium GitHub:
+Dla Twojej wygody pliki instalacyjne i uruchomieniowe są dostępne bezpośrednio w tym repozytorium:
 
-| Platforma | Plik do Pobrania | Wygląd & Opis |
-|---|---|---|
-| 📱 **Android** | 📥 **[Wyniki-Badan-Android.apk](./downloads/Wyniki-Badan-Android.apk)** | **Gotowy plik `.apk` (80 MB)** do zainstalowania bezpośrednio na telefonie/tablecie z systemem Android |
-| 🖥️ **Windows** | 📥 **[Wyniki-Badan-Windows.zip](file:///C:/Users/JA/Desktop/Wyniki-Badan-Windows.zip)** | Samodzielny program `.exe` dla Windowsa (dostępny lokalnie na Pulpicie oraz z pliku `./electron/main.js`) |
-| 🌐 **Web Offline** | 📥 **[Wyniki-Badan-Web.zip](./downloads/Wyniki-Badan-Web.zip)** | Wygenerowana paczka HTML do otwarcia w dowolnej przeglądarce |
-
----
-
-## 📂 Ścieżki do Plików w Repozytorium GitHub
-
-Dokładna struktura katalogów w repozytorium do wszystkich modułów:
-
-* 📱 **Android (Aplikacja APK & Projekt Android Studio)**:  
-  └─ 📥 Gotowy plik APK: `./downloads/Wyniki-Badan-Android.apk`  
-  └─ 📁 Natywny projekt Android Studio: `./android`  
-* 🖥️ **Windows (Program Desktopowy Electron)**:  
-  └─ 📁 Plik uruchomieniowy Electron: `./electron/main.js`  
-  └─ 📄 Konfiguracja budowania .exe: `./electron-package.json`  
-* 🍏 **iOS (Natywny projekt Xcode)**:  
-  └─ 📁 Przestrzeń robocza Xcode: `./ios/wynikibadanapp.xcworkspace`  
-* 🌐 **Web (Wersja produkcyjna HTML)**:  
-  └─ 📥 Paczka ZIP: `./downloads/Wyniki-Badan-Web.zip`  
-  └─ 📁 Pliki statyczne HTML/JS: `./dist/index.html`  
+| Platforma | Plik do pobrania (Kliknij, aby pobrać) | Opis |
+| :--- | :--- | :--- |
+| 📱 **Android** | [⬇️ **Pobierz Wyniki-Badan-Android.apk**](https://github.com/sebastiannorman81-maker/wyniki-badan-app/raw/main/downloads/Wyniki-Badan-Android.apk) | Gotowa aplikacja instalacyjna APK na telefony i tablety z systemem Android |
+| 🌐 **Web / Windows** | [⬇️ **Pobierz Wyniki-Badan-Web-Offline.zip**](https://github.com/sebastiannorman81-maker/wyniki-badan-app/raw/main/downloads/Wyniki-Badan-Web-Offline.zip) | Samodzielna paczka HTML/JS do uruchomienia offline na komputerze z systemem Windows |
 
 ---
 
-## ✨ Główne Funkcje Aplikacji
+## 📂 DOKŁADNE ŚCIEŻKI DO PLIKÓW W REPOZYTORIUM GITHUB
+
+Jeśli przeglądasz pliki bezpośrednio na GitHubie, poniżej znajdują się ścieżki do poszczególnych wersji projektu:
+
+### 📱 1. Plik instalacyjny Android (.apk)
+* **Ścieżka na GitHubie**: [`downloads/Wyniki-Badan-Android.apk`](downloads/Wyniki-Badan-Android.apk)
+* **Projekt źródłowy Android Studio**: [`android/`](android/)
+
+### 💻 2. Wersja na Windows / Electron (.exe launcher)
+* **Program uruchomieniowy Electron**: [`electron/main.js`](electron/main.js)
+* **Strona startowa aplikacji Web**: [`dist/index.html`](dist/index.html)
+* **Paczka offline w repozytorium**: [`downloads/Wyniki-Badan-Web-Offline.zip`](downloads/Wyniki-Badan-Web-Offline.zip)
+
+### 🍏 3. Wersja na iOS (iPhone / iPad)
+* **Projekt natywny Xcode**: [`ios/wynikibadanapp.xcworkspace`](ios/)
+
+---
+
+## ✨ Główne Funkcje
 
 * 📊 **Interaktywne Wykresy & Trend**: Podgląd zmian wskaźników w czasie, wykrywanie trendów rosnących/malejących (% zmiana w porównaniu do poprzedniego wyniku).
 * 📄 **Generowanie Raportów PDF**: Wybór zakresu dat oraz parametrów, opcjonalne dane pacjenta i generowanie profesjonalnego zestawienia medycznego dla lekarza.
@@ -48,7 +47,7 @@ Dokładna struktura katalogów w repozytorium do wszystkich modułów:
 
 ---
 
-## 🛠️ Uruchomienie Programistyczne (Lokalnie w kodzie)
+## 🛠️ Uruchomienie Programistyczne (Lokalnie)
 
 Wymagane środowisko: **Node.js (v18+)** oraz **npm**.
 
