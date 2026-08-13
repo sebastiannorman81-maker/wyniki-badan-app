@@ -113,20 +113,85 @@ export const theme = {
   statusUnknown: { bg: 'rgba(255,255,255,0.05)', text: '#8b8da8', label: 'Brak normy' },
 };
 
-export type ThemeMode = 'light' | 'dark' | 'system';
+export const liquidGlassColors = {
+  bgApp: '#070814',
+  bgSurface: 'rgba(18, 22, 38, 0.70)',
+  bgSurfaceHover: 'rgba(28, 34, 58, 0.80)',
+  bgSurfaceActive: 'rgba(38, 46, 76, 0.90)',
+  bgCard: 'rgba(18, 22, 38, 0.65)',
+  borderColor: 'rgba(255, 255, 255, 0.16)',
+  borderColorHover: 'rgba(255, 255, 255, 0.32)',
+  borderSubtle: 'rgba(255, 255, 255, 0.08)',
+  textPrimary: '#ffffff',
+  textSecondary: '#a0a4c8',
+  textMuted: '#686c8f',
+  textInverse: '#070814',
+};
+
+export type ThemeMode = 'light' | 'dark' | 'liquid-glass' | 'system';
 export type FontMode = 'standard' | 'handwriting';
 
 export function applyTheme(mode: ThemeMode, systemTheme: 'light' | 'dark') {
   if (Platform.OS !== 'web') return;
   
   const resolved = mode === 'system' ? systemTheme : mode;
-  const colors = resolved === 'light' ? lightColors : darkColors;
+  let colors = darkColors;
+  if (resolved === 'light') {
+    colors = lightColors;
+  } else if (resolved === 'liquid-glass') {
+    colors = liquidGlassColors;
+  }
   
   const root = document.documentElement;
   Object.entries(colors).forEach(([key, value]) => {
     const cssKey = `--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
     root.style.setProperty(cssKey, value);
   });
+
+  // Inject or update Liquid Glass global CSS effects (backdrop blur, ambient fluid orbs, glossy highlights)
+  const styleId = 'liquid-glass-theme-style';
+  let styleEl = document.getElementById(styleId);
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    document.head.appendChild(styleEl);
+  }
+
+  if (resolved === 'liquid-glass') {
+    styleEl.textContent = `
+      body, #root {
+        background-color: #070814 !important;
+        background-image: 
+          radial-gradient(circle at 15% 15%, rgba(124, 108, 240, 0.25) 0%, transparent 45%),
+          radial-gradient(circle at 85% 65%, rgba(34, 211, 197, 0.20) 0%, transparent 40%),
+          radial-gradient(circle at 50% 90%, rgba(253, 121, 168, 0.15) 0%, transparent 50%) !important;
+        background-attachment: fixed !important;
+      }
+      /* Apply glassmorphism backdrop blur to all card containers */
+      [style*="background-color: var(--bg-surface)"],
+      [style*="background-color: var(--bg-card)"],
+      [style*="backgroundColor: var(--bg-surface)"],
+      [style*="backgroundColor: var(--bg-card)"],
+      div {
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+      }
+    `;
+  } else if (resolved === 'dark') {
+    styleEl.textContent = `
+      body, #root {
+        background-color: #05060b !important;
+        background-image: none !important;
+      }
+    `;
+  } else {
+    styleEl.textContent = `
+      body, #root {
+        background-color: #f4f5f8 !important;
+        background-image: none !important;
+      }
+    `;
+  }
 }
 
 export function getHandwritingFontFamily(fontMode: FontMode = 'handwriting') {

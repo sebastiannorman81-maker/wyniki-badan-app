@@ -662,10 +662,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   mainPaperSheet: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: theme.bgSurface,
     borderRadius: theme.radiusMd,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: theme.borderColor,
     borderLeftWidth: 4,
     padding: theme.spaceMd,
     position: 'relative',

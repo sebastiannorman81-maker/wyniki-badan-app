@@ -105,13 +105,14 @@ export default function SettingsView({
       {/* Theme selection */}
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>Motyw aplikacji</Text>
-        <Text style={styles.sectionDesc}>Wybierz jasny, ciemny lub systemowy schemat kolorów:</Text>
+        <Text style={styles.sectionDesc}>Wybierz Liquid Glass (szkłomorfizm), ciemny, jasny lub systemowy:</Text>
         
         <View style={styles.optionsRow}>
           {[
-            { label: 'Jasny', value: 'light' as const },
-            { label: 'Ciemny', value: 'dark' as const },
-            { label: 'Systemowy', value: 'system' as const }
+            { label: 'Liquid Glass 💧', value: 'liquid-glass' as const },
+            { label: 'Ciemny 🌙', value: 'dark' as const },
+            { label: 'Jasny ☀️', value: 'light' as const },
+            { label: 'System 📱', value: 'system' as const }
           ].map(opt => {
             const isSelected = themeMode === opt.value;
             return (
@@ -119,7 +120,7 @@ export default function SettingsView({
                 key={opt.value}
                 style={[
                   styles.optionBtn,
-                  isSelected && { backgroundColor: accentColor + '15', borderColor: accentColor }
+                  isSelected && { backgroundColor: accentColor + '20', borderColor: accentColor }
                 ]}
                 onPress={() => setThemeMode(opt.value)}
                 activeOpacity={0.7}
