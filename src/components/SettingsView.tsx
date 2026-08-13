@@ -105,14 +105,13 @@ export default function SettingsView({
       {/* Theme selection */}
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>Motyw aplikacji</Text>
-        <Text style={styles.sectionDesc}>Wybierz Liquid Glass (szkłomorfizm), ciemny, jasny lub systemowy:</Text>
+        <Text style={styles.sectionDesc}>Wybierz jasny, ciemny lub systemowy schemat kolorów:</Text>
         
         <View style={styles.optionsRow}>
           {[
-            { label: 'Liquid Glass 💧', value: 'liquid-glass' as const },
-            { label: 'Ciemny 🌙', value: 'dark' as const },
-            { label: 'Jasny ☀️', value: 'light' as const },
-            { label: 'System 📱', value: 'system' as const }
+            { label: 'Jasny', value: 'light' as const },
+            { label: 'Ciemny', value: 'dark' as const },
+            { label: 'Systemowy', value: 'system' as const }
           ].map(opt => {
             const isSelected = themeMode === opt.value;
             return (

@@ -70,7 +70,7 @@ function MainAppContent() {
 
   // Accent Color & Custom Theme/Font States
   const [accentColor, setAccentColor] = useState<string>(theme.accentPrimary);
-  const [themeMode, setThemeMode] = useState<ThemeMode>('liquid-glass');
+  const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
   const [fontMode, setFontMode] = useState<FontMode>('standard');
   const [isCompact, setIsCompact] = useState<boolean>(false);
   const systemColorScheme = useColorScheme();
@@ -81,7 +81,7 @@ function MainAppContent() {
     });
     AsyncStorage.getItem(THEME_MODE_KEY).then(stored => {
       if (stored) setThemeMode(stored as ThemeMode);
-      else setThemeMode('liquid-glass');
+      else setThemeMode('dark');
     });
     AsyncStorage.getItem(FONT_MODE_KEY).then(stored => {
       if (stored) setFontMode(stored as FontMode);
