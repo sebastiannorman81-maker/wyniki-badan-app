@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, useColorScheme } from 'react-native';
+import { StyleSheet, View, useColorScheme, Platform, StatusBar as RNStatusBar } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFonts, Kalam_400Regular, Kalam_700Bold } from '@expo-google-fonts/kalam';
 import { theme, applyTheme, applyFont, ThemeMode, FontMode } from './src/utils/theme';
 import { TestParameter, TestResult } from './src/types';
 import { useTestData } from './src/hooks/useTestData';
@@ -21,7 +23,12 @@ const THEME_MODE_KEY = 'wyniki_badan_theme_mode';
 const FONT_MODE_KEY = 'wyniki_badan_font_mode';
 const COMPACT_VIEW_KEY = 'wyniki_badan_compact_view';
 
-export default function App() {
+function MainAppContent() {
+  const insets = useSafeAreaInsets();
+  const [fontsLoaded] = useFonts({
+    Kalam_400Regular,
+    Kalam_700Bold,
+  });
   const {
     parameters,
     results,
@@ -190,9 +197,12 @@ export default function App() {
   };
 
 
+  const topPadding = Platform.OS === 'android' ? (RNStatusBar.currentHeight || 24) + 8 : Math.max(insets.top, 12);
+  const bottomPadding = Math.max(insets.bottom, 12);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
+    <View style={[styles.container, { paddingTop: topPadding, paddingBottom: bottomPadding }]}>
+      <StatusBar style={themeMode === 'light' ? 'dark' : 'light'} />
       
       <View style={{ flex: 1 }}>
         {screen === 'settings' ? (
@@ -237,6 +247,7 @@ export default function App() {
             onReorderParameter={reorderParameters}
             isCompact={isCompact}
             setIsCompact={handleSetIsCompact}
+            fontMode={fontMode}
           />
         ) : (
           selectedParam && (
@@ -261,6 +272,7 @@ export default function App() {
               setSelectedParam={setSelectedParam}
               onSharePress={() => setShowQRModal(true)}
               accentColor={accentColor}
+              fontMode={fontMode}
             />
           )
         )}
@@ -322,7 +334,15 @@ export default function App() {
         onClose={() => setShowReportModal(false)}
         accentColor={accentColor}
       />
-    </SafeAreaView>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MainAppContent />
+    </SafeAreaProvider>
   );
 }
 

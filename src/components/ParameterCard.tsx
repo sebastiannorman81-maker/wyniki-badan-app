@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { theme } from '../utils/theme';
+import { theme, getHandwritingFontFamily, FontMode } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORY_COLORS, CATEGORY_ICONS } from '../types';
 import { checkRangeStatus, getStatusInfo } from '../utils/rangeParser';
 import { Pencil, Trash, Plus, DragHandle, ArrowUp, ArrowDown, TrendingUp, TrendingDown, FileText } from './Icons';
@@ -23,6 +23,7 @@ interface Props {
   dragIndex?: number;
   onReorder?: (fromIndex: number, toIndex: number) => void;
   compact?: boolean;
+  fontMode?: FontMode;
 }
 
 export default function ParameterCard({
@@ -43,6 +44,7 @@ export default function ParameterCard({
   dragIndex,
   onReorder,
   compact = false,
+  fontMode,
 }: Props) {
   const status = latestResult
     ? checkRangeStatus(latestResult.value, parameter.referenceRange)
@@ -176,7 +178,7 @@ export default function ParameterCard({
 
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-              <Text style={styles.compactName} numberOfLines={1}>{parameter.name}</Text>
+              <Text style={[styles.compactName, { fontFamily: getHandwritingFontFamily(fontMode) }]} numberOfLines={1}>{parameter.name}</Text>
               <View style={[styles.categoryBadge, { backgroundColor: catColor + '15', paddingHorizontal: 6, paddingVertical: 1 }]}>
                 <Text style={[styles.categoryText, { color: catColor, fontSize: 8.5 }]}>
                   {catIcon} {parameter.category}
@@ -248,7 +250,7 @@ export default function ParameterCard({
         )}
         
         <View style={{ flex: 1 }}>
-          <Text style={styles.name} numberOfLines={2}>{parameter.name}</Text>
+          <Text style={[styles.name, { fontFamily: getHandwritingFontFamily(fontMode) }]} numberOfLines={2}>{parameter.name}</Text>
           <View style={styles.tagsRow}>
             <View style={[styles.categoryBadge, { backgroundColor: catColor + '20' }]}>
               <Text style={[styles.categoryText, { color: catColor }]}>

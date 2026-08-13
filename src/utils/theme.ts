@@ -129,6 +129,13 @@ export function applyTheme(mode: ThemeMode, systemTheme: 'light' | 'dark') {
   });
 }
 
+export function getHandwritingFontFamily(fontMode: FontMode = 'handwriting') {
+  if (fontMode === 'handwriting') {
+    return Platform.OS === 'web' ? "'Kalam', 'Caveat', cursive, sans-serif" : 'Kalam_700Bold';
+  }
+  return Platform.OS === 'web' ? "'Inter', sans-serif" : undefined;
+}
+
 export function applyFont(fontMode: FontMode) {
   if (Platform.OS !== 'web') return;
   

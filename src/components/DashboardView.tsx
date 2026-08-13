@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, Alert, Platform
 } from 'react-native';
-import { theme } from '../utils/theme';
+import { theme, getHandwritingFontFamily, FontMode } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORIES, CATEGORY_ICONS } from '../types';
 import ParameterCard from './ParameterCard';
 import EmptyState from './EmptyState';
@@ -36,6 +36,7 @@ interface Props {
   onReorderParameter: (fromIndex: number, toIndex: number) => void;
   isCompact: boolean;
   setIsCompact: (val: boolean) => void;
+  fontMode?: FontMode;
 }
 
 export default function DashboardView({
@@ -63,6 +64,7 @@ export default function DashboardView({
   onReorderParameter,
   isCompact,
   setIsCompact,
+  fontMode,
 }: Props) {
 
   const [sortMode, setSortMode] = useState<SortMode>('custom');
@@ -153,7 +155,7 @@ export default function DashboardView({
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <View>
-              <Text style={styles.title}>Wyniki Badań</Text>
+              <Text style={[styles.title, { fontFamily: getHandwritingFontFamily(fontMode) }]}>Wyniki Badań</Text>
               <Text style={styles.subtitle}>Wskaźniki laboratoryjne offline</Text>
             </View>
             <TouchableOpacity onPress={onOpenSettings} style={[styles.backupBtn, { borderColor: accentColor, paddingHorizontal: 12, paddingVertical: 8 }]} activeOpacity={0.7}>
@@ -362,6 +364,7 @@ export default function DashboardView({
                   isLast={globalIndex === parameters.length - 1}
                   accentColor={accentColor}
                   compact={isCompact}
+                  fontMode={fontMode}
                 />
               );
             })}

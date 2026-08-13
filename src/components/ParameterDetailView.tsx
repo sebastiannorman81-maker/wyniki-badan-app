@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert, Platform, Animated
 } from 'react-native';
-import { theme } from '../utils/theme';
+import { theme, getHandwritingFontFamily, FontMode } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORY_COLORS } from '../types';
 import TestChart from './TestChart';
 import { checkRangeStatus, getStatusInfo } from '../utils/rangeParser';
@@ -21,6 +21,7 @@ interface Props {
   setSelectedParam: (param: TestParameter) => void;
   onSharePress: () => void;
   accentColor: string;
+  fontMode?: FontMode;
 }
 
 export default function ParameterDetailView({
@@ -36,6 +37,7 @@ export default function ParameterDetailView({
   setSelectedParam,
   onSharePress,
   accentColor,
+  fontMode,
 }: Props) {
   const [testStartDate, setTestStartDate] = useState('');
   const [testEndDate, setTestEndDate] = useState('');
@@ -167,7 +169,7 @@ export default function ParameterDetailView({
             <ChevronLeft color={theme.textSecondary} size={16} />
           </TouchableOpacity>
 
-          <Text style={styles.title} numberOfLines={1}>{selectedParam.name}</Text>
+          <Text style={[styles.title, { fontFamily: getHandwritingFontFamily(fontMode) }]} numberOfLines={1}>{selectedParam.name}</Text>
 
           <TouchableOpacity
             onPress={handleNextParam}

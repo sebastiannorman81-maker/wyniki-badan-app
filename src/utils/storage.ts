@@ -16,13 +16,7 @@ export async function loadParameters(): Promise<TestParameter[]> {
   try {
     const json = await AsyncStorage.getItem(PARAMS_KEY);
     if (json) return JSON.parse(json);
-    // Domyślne dane startowe
-    const defaults: TestParameter[] = [
-      { name: 'TSH', unit: 'mIU/l', referenceRange: '0.27 - 4.2', category: 'Tarczyca', tags: ['tarczyca', 'hormony'] },
-      { name: 'Cholesterol całkowity', unit: 'mg/dl', referenceRange: '< 190', category: 'Lipidy', tags: ['serce', 'lipidy'] },
-      { name: 'Glukoza', unit: 'mg/dl', referenceRange: '70 - 99', category: 'Krew', tags: ['cukier', 'krew'] },
-      { name: 'Hemoglobina', unit: 'g/dl', referenceRange: '13.5 - 17.5', category: 'Krew', tags: ['krew', 'anemia'] },
-    ];
+    const defaults: TestParameter[] = [];
     await saveParameters(defaults);
     return defaults;
   } catch (e) {
@@ -43,15 +37,7 @@ export async function loadResults(): Promise<TestResult[]> {
   try {
     const json = await AsyncStorage.getItem(RESULTS_KEY);
     if (json) return JSON.parse(json);
-    // Domyślne dane startowe
-    const defaults: TestResult[] = [
-      { id: 'test_1', date: '2026-05-10', parameter: 'TSH', value: 2.1, unit: 'mIU/l', referenceRange: '0.27 - 4.2', category: 'Tarczyca', notes: 'Stabilne wyniki' },
-      { id: 'test_2', date: '2026-06-15', parameter: 'TSH', value: 2.4, unit: 'mIU/l', referenceRange: '0.27 - 4.2', category: 'Tarczyca', notes: 'Kontrola' },
-      { id: 'test_3', date: '2026-05-10', parameter: 'Cholesterol całkowity', value: 195, unit: 'mg/dl', referenceRange: '< 190', category: 'Lipidy', notes: 'Lekko podwyższony' },
-      { id: 'test_4', date: '2026-06-15', parameter: 'Cholesterol całkowity', value: 182, unit: 'mg/dl', referenceRange: '< 190', category: 'Lipidy', notes: 'Poprawa po diecie' },
-      { id: 'test_5', date: '2026-05-10', parameter: 'Glukoza', value: 92, unit: 'mg/dl', referenceRange: '70 - 99', category: 'Krew', notes: 'Na czczo' },
-      { id: 'test_6', date: '2026-06-01', parameter: 'Hemoglobina', value: 15.2, unit: 'g/dl', referenceRange: '13.5 - 17.5', category: 'Krew', notes: '' },
-    ];
+    const defaults: TestResult[] = [];
     await saveResults(defaults);
     return defaults;
   } catch (e) {
