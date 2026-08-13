@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, Alert, Platform
 } from 'react-native';
-import { theme, getHandwritingFontFamily, FontMode } from '../utils/theme';
+import { theme, getHandwritingFontFamily, getHandwrittenTextStyle, FontMode } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORIES, CATEGORY_ICONS } from '../types';
 import ParameterCard from './ParameterCard';
 import EmptyState from './EmptyState';
@@ -155,7 +155,7 @@ export default function DashboardView({
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <View>
-              <Text style={[styles.title, { fontFamily: getHandwritingFontFamily(fontMode) }]}>Wyniki Badań</Text>
+              <Text style={[styles.title, getHandwrittenTextStyle(fontMode, true)]}>Wyniki Badań</Text>
               <Text style={styles.subtitle}>Wskaźniki laboratoryjne offline</Text>
             </View>
             <TouchableOpacity onPress={onOpenSettings} style={[styles.backupBtn, { borderColor: accentColor, paddingHorizontal: 12, paddingVertical: 8 }]} activeOpacity={0.7}>

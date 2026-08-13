@@ -7,6 +7,17 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#05060b",
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Kalam_700Bold.ttf",
+            "./assets/fonts/Kalam_400Regular.ttf"
+          ]
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.wynikibadanapp"

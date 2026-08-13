@@ -136,6 +136,16 @@ export function getHandwritingFontFamily(fontMode: FontMode = 'handwriting') {
   return Platform.OS === 'web' ? "'Inter', sans-serif" : undefined;
 }
 
+export function getHandwrittenTextStyle(fontMode: FontMode = 'standard', isBold: boolean = false) {
+  if (fontMode === 'handwriting') {
+    return {
+      fontFamily: Platform.OS === 'web' ? "'Kalam', 'Caveat', cursive, sans-serif" : (isBold ? 'Kalam_700Bold' : 'Kalam_400Regular'),
+      ...(Platform.OS === 'android' ? { fontWeight: 'normal' as const } : {}),
+    };
+  }
+  return {};
+}
+
 export function applyFont(fontMode: FontMode) {
   if (Platform.OS !== 'web') return;
   

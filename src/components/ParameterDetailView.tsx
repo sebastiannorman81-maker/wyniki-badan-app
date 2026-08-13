@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert, Platform, Animated
 } from 'react-native';
-import { theme, getHandwritingFontFamily, FontMode } from '../utils/theme';
+import { theme, getHandwritingFontFamily, getHandwrittenTextStyle, FontMode } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORY_COLORS } from '../types';
 import TestChart from './TestChart';
 import { checkRangeStatus, getStatusInfo } from '../utils/rangeParser';
@@ -169,7 +169,7 @@ export default function ParameterDetailView({
             <ChevronLeft color={theme.textSecondary} size={16} />
           </TouchableOpacity>
 
-          <Text style={[styles.title, { fontFamily: getHandwritingFontFamily(fontMode) }]} numberOfLines={1}>{selectedParam.name}</Text>
+          <Text style={[styles.title, getHandwrittenTextStyle(fontMode, true)]} numberOfLines={1}>{selectedParam.name}</Text>
 
           <TouchableOpacity
             onPress={handleNextParam}
