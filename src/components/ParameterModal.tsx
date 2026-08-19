@@ -63,13 +63,13 @@ export default function ParameterModal({ visible, editingParam, existingNames, o
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.overlay}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.overlay}>
         <View style={styles.modal}>
           <Text style={[styles.title, { color: accentColor }]}>
             {editingParam ? '✏️ Edytuj Wskaźnik' : '🧪 Dodaj Nowy Wskaźnik'}
           </Text>
 
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+          <ScrollView style={styles.scrollArea} contentContainerStyle={{ paddingBottom: 12 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
             {/* Name */}
             <Text style={styles.label}>Nazwa Wskaźnika / Badania:</Text>
             <TextInput
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: theme.spaceLg,
+    padding: theme.spaceMd,
   },
   modal: {
     width: '100%',
     maxWidth: 440,
-    maxHeight: '85%',
+    maxHeight: '90%',
     backgroundColor: theme.bgSurface,
     borderRadius: theme.radiusMd,
     borderWidth: 1,
@@ -177,6 +177,11 @@ const styles = StyleSheet.create({
     padding: theme.spaceLg,
     gap: theme.spaceSm,
     ...theme.shadowLg,
+  },
+  scrollArea: {
+    maxHeight: 460,
+    flexGrow: 0,
+    flexShrink: 1,
   },
   title: {
     fontSize: 18,
