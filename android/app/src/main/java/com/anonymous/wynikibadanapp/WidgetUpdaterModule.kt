@@ -50,17 +50,5 @@ class WidgetUpdaterModule(reactContext: ReactApplicationContext) : ReactContextB
             intentCompact.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsCompact)
             context.sendBroadcast(intentCompact)
         }
-
-        // Update TrendChartWidget
-        val intentTrend = Intent(context, TrendChartWidgetProvider::class.java).apply {
-            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        }
-        val idsTrend = AppWidgetManager.getInstance(context).getAppWidgetIds(
-            ComponentName(context, TrendChartWidgetProvider::class.java)
-        )
-        if (idsTrend != null && idsTrend.isNotEmpty()) {
-            intentTrend.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsTrend)
-            context.sendBroadcast(intentTrend)
-        }
     }
 }
