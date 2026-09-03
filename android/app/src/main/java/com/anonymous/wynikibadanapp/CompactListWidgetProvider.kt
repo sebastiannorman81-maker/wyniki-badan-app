@@ -3,7 +3,6 @@ package com.anonymous.wynikibadanapp
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import android.widget.RemoteViews
 import org.json.JSONArray
@@ -56,7 +55,6 @@ class CompactListWidgetProvider : AppWidgetProvider() {
                         val categoryId = context.resources.getIdentifier("row${rowNum}_category", "id", context.packageName)
                         val valueId = context.resources.getIdentifier("row${rowNum}_value", "id", context.packageName)
                         val statusId = context.resources.getIdentifier("row${rowNum}_status", "id", context.packageName)
-                        val accentId = context.resources.getIdentifier("row${rowNum}_accent", "id", context.packageName)
 
                         if (rowId == 0) continue
 
@@ -82,46 +80,31 @@ class CompactListWidgetProvider : AppWidgetProvider() {
                             val resValStr = if (resVal % 1.0 == 0.0) resVal.toInt().toString() else resVal.toString()
                             views.setTextViewText(valueId, "$resValStr $unit")
 
-                            // Check status and set badge background color safely
+                            // Check status and set badge text and color
                             val status = checkRange(resVal, refRange)
                             when (status) {
                                 "NORMAL" -> {
-                                    views.setTextViewText(statusId, "W normie")
-                                    views.setInt(statusId, "setBackgroundColor", 0xFF00C48C.toInt())
-                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
+                                    views.setTextViewText(statusId, "● W normie")
+                                    views.setTextColor(statusId, 0xFF00C48C.toInt())
                                 }
                                 "HIGH" -> {
-                                    views.setTextViewText(statusId, "Powyżej normy")
-                                    views.setInt(statusId, "setBackgroundColor", 0xFFFF5C6C.toInt())
-                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
+                                    views.setTextViewText(statusId, "▲ Powyżej")
+                                    views.setTextColor(statusId, 0xFFFF5C6C.toInt())
                                 }
                                 "LOW" -> {
-                                    views.setTextViewText(statusId, "Poniżej normy")
-                                    views.setInt(statusId, "setBackgroundColor", 0xFF74B9FF.toInt())
-                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
+                                    views.setTextViewText(statusId, "▼ Poniżej")
+                                    views.setTextColor(statusId, 0xFF74B9FF.toInt())
                                 }
                                 else -> {
-                                    views.setTextViewText(statusId, "Brak normy")
-                                    views.setInt(statusId, "setBackgroundColor", 0xFF373950.toInt())
-                                    views.setTextColor(statusId, 0xFFEEF0F6.toInt())
+                                    views.setTextViewText(statusId, "— Brak")
+                                    views.setTextColor(statusId, 0xFF8B8DA8.toInt())
                                 }
                             }
                         } else {
                             views.setTextViewText(valueId, "Brak wyników")
-                            views.setTextViewText(statusId, "Brak normy")
-                            views.setInt(statusId, "setBackgroundColor", 0xFF373950.toInt())
-                            views.setTextColor(statusId, 0xFFEEF0F6.toInt())
+                            views.setTextViewText(statusId, "— Brak")
+                            views.setTextColor(statusId, 0xFF8B8DA8.toInt())
                         }
-
-                        // Style left accent line
-                        val accentColor = when (rowNum) {
-                            1 -> 0xFF7C6CF0.toInt() // Violet
-                            2 -> 0xFF22D3C5.toInt() // Teal
-                            3 -> 0xFF00C48C.toInt() // Green
-                            4 -> 0xFFFFB74D.toInt() // Orange
-                            else -> 0xFFFF5C6C.toInt() // Red
-                        }
-                        views.setInt(accentId, "setBackgroundColor", accentColor)
                     }
                 }
             } catch (e: Throwable) {

@@ -63,7 +63,7 @@
             android:background="#14151f"
             android:padding="6dp">
             
-            <View
+            <ImageView
                 android:id="@+id/row1_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
@@ -124,9 +124,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Powyżej normy"
-                    android:textColor="#ffffff"
+                    android:textColor="#ff5c6c"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    android:background="@drawable/widget_category_badge"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="3dp"
@@ -143,7 +144,7 @@
             android:background="#14151f"
             android:padding="6dp">
             
-            <View
+            <ImageView
                 android:id="@+id/row2_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
@@ -204,9 +205,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Powyżej normy"
-                    android:textColor="#ffffff"
+                    android:textColor="#ff5c6c"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    android:background="@drawable/widget_category_badge"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="3dp"
@@ -223,7 +225,7 @@
             android:background="#14151f"
             android:padding="6dp">
             
-            <View
+            <ImageView
                 android:id="@+id/row3_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
@@ -284,9 +286,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="W normie"
-                    android:textColor="#ffffff"
+                    android:textColor="#00c48c"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    android:background="@drawable/widget_category_badge"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="3dp"
@@ -303,7 +306,7 @@
             android:background="#14151f"
             android:padding="6dp">
             
-            <View
+            <ImageView
                 android:id="@+id/row4_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
@@ -364,9 +367,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Powyżej normy"
-                    android:textColor="#ffffff"
+                    android:textColor="#ff5c6c"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    android:background="@drawable/widget_category_badge"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="3dp"
@@ -382,7 +386,7 @@
             android:background="#14151f"
             android:padding="6dp">
             
-            <View
+            <ImageView
                 android:id="@+id/row5_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
@@ -443,9 +447,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="W normie"
-                    android:textColor="#ffffff"
+                    android:textColor="#00c48c"
                     android:textSize="9sp"
                     android:textStyle="bold"
+                    android:background="@drawable/widget_category_badge"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="3dp"

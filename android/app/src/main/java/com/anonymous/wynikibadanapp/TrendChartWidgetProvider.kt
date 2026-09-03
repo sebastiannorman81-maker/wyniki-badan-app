@@ -77,24 +77,20 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
                         val status = checkRange(latestVal, refRange)
                         when (status) {
                             "NORMAL" -> {
-                                views.setTextViewText(R.id.param_status, "W normie")
-                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF00C48C.toInt())
-                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
+                                views.setTextViewText(R.id.param_status, "● W normie")
+                                views.setTextColor(R.id.param_status, 0xFF00C48C.toInt())
                             }
                             "HIGH" -> {
-                                views.setTextViewText(R.id.param_status, "Powyżej normy")
-                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFFFF5C6C.toInt())
-                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
+                                views.setTextViewText(R.id.param_status, "▲ Powyżej")
+                                views.setTextColor(R.id.param_status, 0xFFFF5C6C.toInt())
                             }
                             "LOW" -> {
-                                views.setTextViewText(R.id.param_status, "Poniżej normy")
-                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF74B9FF.toInt())
-                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
+                                views.setTextViewText(R.id.param_status, "▼ Poniżej")
+                                views.setTextColor(R.id.param_status, 0xFF74B9FF.toInt())
                             }
                             else -> {
-                                views.setTextViewText(R.id.param_status, "Brak normy")
-                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF373950.toInt())
-                                views.setTextColor(R.id.param_status, 0xFFEEF0F6.toInt())
+                                views.setTextViewText(R.id.param_status, "— Brak")
+                                views.setTextColor(R.id.param_status, 0xFF8B8DA8.toInt())
                             }
                         }
 
@@ -266,6 +262,15 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
             }
 
             return bitmap
+        }
+
+        private fun parseDate(dateStr: String): Long {
+            return try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                sdf.parse(dateStr)?.time ?: 0L
+            } catch (e: Exception) {
+                0L
+            }
         }
 
         private fun getMinNormLimit(rangeStr: String): Double? {
