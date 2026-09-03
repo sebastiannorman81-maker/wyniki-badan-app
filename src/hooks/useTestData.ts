@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { TestParameter, TestResult } from '../types';
 import { loadParameters, saveParameters, loadResults, saveResults } from '../utils/storage';
+import { updateAndroidWidgets } from '../utils/widgets';
 
 export function useTestData() {
   const [parameters, setParameters] = useState<TestParameter[]>([]);
@@ -14,6 +15,8 @@ export function useTestData() {
       setParameters(params);
       setResults(res);
       setLoading(false);
+      // Update widgets on startup to ensure sync
+      updateAndroidWidgets();
     })();
   }, []);
 
@@ -25,6 +28,7 @@ export function useTestData() {
     const updated = [...parameters, param];
     setParameters(updated);
     await saveParameters(updated);
+    updateAndroidWidgets();
   }, [parameters]);
 
   const updateParameter = useCallback(async (oldName: string, param: TestParameter) => {
@@ -48,6 +52,7 @@ export function useTestData() {
     setParameters(updatedParams);
     setResults(updatedResults);
     await Promise.all([saveParameters(updatedParams), saveResults(updatedResults)]);
+    updateAndroidWidgets();
   }, [parameters, results]);
 
   const deleteParameter = useCallback(async (name: string) => {
@@ -56,6 +61,7 @@ export function useTestData() {
     setParameters(updatedParams);
     setResults(updatedResults);
     await Promise.all([saveParameters(updatedParams), saveResults(updatedResults)]);
+    updateAndroidWidgets();
   }, [parameters, results]);
 
   const reorderParameters = useCallback(async (fromIndex: number, toIndex: number) => {
@@ -64,6 +70,7 @@ export function useTestData() {
     updated.splice(toIndex, 0, removed);
     setParameters(updated);
     await saveParameters(updated);
+    updateAndroidWidgets();
   }, [parameters]);
 
   // ========================
@@ -74,24 +81,28 @@ export function useTestData() {
     const updated = [...results, result];
     setResults(updated);
     await saveResults(updated);
+    updateAndroidWidgets();
   }, [results]);
 
   const addResults = useCallback(async (newResults: TestResult[]) => {
     const updated = [...results, ...newResults];
     setResults(updated);
     await saveResults(updated);
+    updateAndroidWidgets();
   }, [results]);
 
   const updateResult = useCallback(async (id: string, updates: Partial<TestResult>) => {
     const updated = results.map(r => r.id === id ? { ...r, ...updates } : r);
     setResults(updated);
     await saveResults(updated);
+    updateAndroidWidgets();
   }, [results]);
 
   const deleteResult = useCallback(async (id: string) => {
     const updated = results.filter(r => r.id !== id);
     setResults(updated);
     await saveResults(updated);
+    updateAndroidWidgets();
   }, [results]);
 
   // ========================
@@ -114,6 +125,7 @@ export function useTestData() {
     setParameters(params);
     setResults(res);
     await Promise.all([saveParameters(params), saveResults(res)]);
+    updateAndroidWidgets();
   }, []);
 
   return {

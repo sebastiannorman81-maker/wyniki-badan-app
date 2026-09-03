@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="12dp">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/widget_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wyniki Badań — Ostatnie"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/widget_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offline"
+            android:textColor="#8b8da8"
+            android:textSize="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <!-- Empty State -->
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Brak zapisanych wskaźników"
+        android:textColor="#8b8da8"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <!-- Rows Container -->
+    <LinearLayout
+        android:id="@+id/rows_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Row 1 -->
+        <RelativeLayout
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="#14151f"
+            android:padding="6dp">
+            
+            <View
+                android:id="@+id/row1_accent"
+                android:layout_width="3dp"
+                android:layout_height="32dp"
+                android:background="#7c6cf0"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/row1_accent"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true">
+                
+                <TextView
+                    android:id="@+id/row1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GGTP"
+                    android:textColor="#eef0f6"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/row1_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krew"
+                    android:textColor="#8b8da8"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/row1_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="154 U/l"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/row1_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powyżej normy"
+                    android:textColor="#ffffff"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/widget_status_badge"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Row 2 -->
+        <RelativeLayout
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="#14151f"
+            android:padding="6dp">
+            
+            <View
+                android:id="@+id/row2_accent"
+                android:layout_width="3dp"
+                android:layout_height="32dp"
+                android:background="#7c6cf0"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/row2_accent"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true">
+                
+                <TextView
+                    android:id="@+id/row2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ALAT"
+                    android:textColor="#eef0f6"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/row2_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krew"
+                    android:textColor="#8b8da8"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/row2_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="118 U/l"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/row2_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powyżej normy"
+                    android:textColor="#ffffff"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/widget_status_badge"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Row 3 -->
+        <RelativeLayout
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="#14151f"
+            android:padding="6dp">
+            
+            <View
+                android:id="@+id/row3_accent"
+                android:layout_width="3dp"
+                android:layout_height="32dp"
+                android:background="#7c6cf0"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/row3_accent"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true">
+                
+                <TextView
+                    android:id="@+id/row3_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ALP"
+                    android:textColor="#eef0f6"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/row3_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krew"
+                    android:textColor="#8b8da8"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/row3_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="115 U/l"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/row3_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W normie"
+                    android:textColor="#ffffff"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/widget_status_badge"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Row 4 -->
+        <RelativeLayout
+            android:id="@+id/row4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="#14151f"
+            android:padding="6dp">
+            
+            <View
+                android:id="@+id/row4_accent"
+                android:layout_width="3dp"
+                android:layout_height="32dp"
+                android:background="#7c6cf0"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/row4_accent"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true">
+                
+                <TextView
+                    android:id="@+id/row4_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ASPAT"
+                    android:textColor="#eef0f6"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/row4_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krew"
+                    android:textColor="#8b8da8"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/row4_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="67 U/l"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/row4_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powyżej normy"
+                    android:textColor="#ffffff"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/widget_status_badge"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Row 5 -->
+        <RelativeLayout
+            android:id="@+id/row5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#14151f"
+            android:padding="6dp">
+            
+            <View
+                android:id="@+id/row5_accent"
+                android:layout_width="3dp"
+                android:layout_height="32dp"
+                android:background="#7c6cf0"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/row5_accent"
+                android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true">
+                
+                <TextView
+                    android:id="@+id/row5_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bilirubina"
+                    android:textColor="#eef0f6"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/row5_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krew"
+                    android:textColor="#8b8da8"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/row5_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.8 mg/dl"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/row5_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W normie"
+                    android:textColor="#ffffff"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/widget_status_badge"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
