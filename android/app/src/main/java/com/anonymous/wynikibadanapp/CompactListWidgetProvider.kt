@@ -3,6 +3,7 @@ package com.anonymous.wynikibadanapp
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.widget.RemoteViews
 import org.json.JSONArray
@@ -81,33 +82,38 @@ class CompactListWidgetProvider : AppWidgetProvider() {
                             val resValStr = if (resVal % 1.0 == 0.0) resVal.toInt().toString() else resVal.toString()
                             views.setTextViewText(valueId, "$resValStr $unit")
 
-                            // Check status and set badge background resource
+                            // Check status and set badge background color safely
                             val status = checkRange(resVal, refRange)
                             when (status) {
                                 "NORMAL" -> {
                                     views.setTextViewText(statusId, "W normie")
-                                    views.setInt(statusId, "setBackgroundResource", R.drawable.badge_normal)
+                                    views.setInt(statusId, "setBackgroundColor", 0xFF00C48C.toInt())
+                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
                                 }
                                 "HIGH" -> {
                                     views.setTextViewText(statusId, "Powyżej normy")
-                                    views.setInt(statusId, "setBackgroundResource", R.drawable.badge_high)
+                                    views.setInt(statusId, "setBackgroundColor", 0xFFFF5C6C.toInt())
+                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
                                 }
                                 "LOW" -> {
                                     views.setTextViewText(statusId, "Poniżej normy")
-                                    views.setInt(statusId, "setBackgroundResource", R.drawable.badge_low)
+                                    views.setInt(statusId, "setBackgroundColor", 0xFF74B9FF.toInt())
+                                    views.setTextColor(statusId, 0xFFFFFFFF.toInt())
                                 }
                                 else -> {
                                     views.setTextViewText(statusId, "Brak normy")
-                                    views.setInt(statusId, "setBackgroundResource", R.drawable.badge_unknown)
+                                    views.setInt(statusId, "setBackgroundColor", 0xFF373950.toInt())
+                                    views.setTextColor(statusId, 0xFFEEF0F6.toInt())
                                 }
                             }
                         } else {
                             views.setTextViewText(valueId, "Brak wyników")
                             views.setTextViewText(statusId, "Brak normy")
-                            views.setInt(statusId, "setBackgroundResource", R.drawable.badge_unknown)
+                            views.setInt(statusId, "setBackgroundColor", 0xFF373950.toInt())
+                            views.setTextColor(statusId, 0xFFEEF0F6.toInt())
                         }
 
-                        // Style left accent line based on category or predefined order
+                        // Style left accent line
                         val accentColor = when (rowNum) {
                             1 -> 0xFF7C6CF0.toInt() // Violet
                             2 -> 0xFF22D3C5.toInt() // Teal
@@ -118,7 +124,7 @@ class CompactListWidgetProvider : AppWidgetProvider() {
                         views.setInt(accentId, "setBackgroundColor", accentColor)
                     }
                 }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
             }
 

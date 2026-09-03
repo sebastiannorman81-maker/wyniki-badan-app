@@ -2,6 +2,7 @@ package com.anonymous.wynikibadanapp
 
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -14,9 +15,30 @@ class WidgetUpdaterModule(reactContext: ReactApplicationContext) : ReactContextB
     }
 
     @ReactMethod
-    fun updateWidgets() {
+    fun updateWidgets(paramsJson: String?, resultsJson: String?) {
         val context = reactApplicationContext
-        
+
+        // Store directly into SharedPreferences for 100% reliable instant access by widgets
+        val prefs = context.getSharedPreferences("WynikiBadanWidgets", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        if (paramsJson != null) {
+            editor.putString("params", paramsJson)
+        }
+        if (resultsJson != null) {
+            editor.putString("results", resultsJson)
+        }
+        editor.apply()
+
+        sendUpdateBroadcasts(context)
+    }
+
+    @ReactMethod
+    fun triggerUpdate() {
+        val context = reactApplicationContext
+        sendUpdateBroadcasts(context)
+    }
+
+    private fun sendUpdateBroadcasts(context: Context) {
         // Update CompactListWidget
         val intentCompact = Intent(context, CompactListWidgetProvider::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
@@ -24,8 +46,10 @@ class WidgetUpdaterModule(reactContext: ReactApplicationContext) : ReactContextB
         val idsCompact = AppWidgetManager.getInstance(context).getAppWidgetIds(
             ComponentName(context, CompactListWidgetProvider::class.java)
         )
-        intentCompact.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsCompact)
-        context.sendBroadcast(intentCompact)
+        if (idsCompact != null && idsCompact.isNotEmpty()) {
+            intentCompact.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsCompact)
+            context.sendBroadcast(intentCompact)
+        }
 
         // Update TrendChartWidget
         val intentTrend = Intent(context, TrendChartWidgetProvider::class.java).apply {
@@ -34,7 +58,9 @@ class WidgetUpdaterModule(reactContext: ReactApplicationContext) : ReactContextB
         val idsTrend = AppWidgetManager.getInstance(context).getAppWidgetIds(
             ComponentName(context, TrendChartWidgetProvider::class.java)
         )
-        intentTrend.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsTrend)
-        context.sendBroadcast(intentTrend)
+        if (idsTrend != null && idsTrend.isNotEmpty()) {
+            intentTrend.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsTrend)
+            context.sendBroadcast(intentTrend)
+        }
     }
 }

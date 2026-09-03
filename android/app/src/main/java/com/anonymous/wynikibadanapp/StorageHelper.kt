@@ -5,43 +5,105 @@ import android.database.sqlite.SQLiteDatabase
 import org.json.JSONArray
 
 object StorageHelper {
-    fun getAsyncStorageValue(context: Context, key: String): String? {
-        val dbFile = context.getDatabasePath("RKStorage")
-        if (!dbFile.exists()) return null
-        
-        var db: SQLiteDatabase? = null
-        try {
-            db = SQLiteDatabase.openDatabase(dbFile.absolutePath, null, SQLiteDatabase.OPEN_READONLY)
-            val cursor = db.rawQuery("SELECT value FROM catalystLocalStorage WHERE key = ?", arrayOf(key))
-            if (cursor.moveToFirst()) {
-                val value = cursor.getString(0)
-                cursor.close()
-                return value
-            }
-            cursor.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            db?.close()
-        }
-        return null
-    }
 
     fun getParameters(context: Context): JSONArray {
-        val raw = getAsyncStorageValue(context, "@wyniki_badania_parameters") ?: return JSONArray()
-        return try {
-            JSONArray(raw)
-        } catch (e: Exception) {
-            JSONArray()
+        // 1. Try SharedPreferences first (highest priority, always in sync)
+        val prefs = context.getSharedPreferences("WynikiBadanWidgets", Context.MODE_PRIVATE)
+        val prefsData = prefs.getString("params", null)
+        if (!prefsData.isNullOrBlank() && prefsData != "[]") {
+            try {
+                return JSONArray(prefsData)
+            } catch (e: Exception) {
+                // fallback
+            }
         }
+
+        // 2. Try AsyncStorage Room SQLite database
+        val roomData = querySqlite(context, "AsyncStorage", "Storage", "key", "value", "@wyniki_badania_parameters")
+        if (!roomData.isNullOrBlank()) {
+            try {
+                return JSONArray(roomData)
+            } catch (e: Exception) {
+                // fallback
+            }
+        }
+
+        // 3. Try legacy RKStorage SQLite database
+        val legacyData = querySqlite(context, "RKStorage", "catalystLocalStorage", "key", "value", "@wyniki_badania_parameters")
+        if (!legacyData.isNullOrBlank()) {
+            try {
+                return JSONArray(legacyData)
+            } catch (e: Exception) {
+                // fallback
+            }
+        }
+
+        return JSONArray()
     }
 
     fun getResults(context: Context): JSONArray {
-        val raw = getAsyncStorageValue(context, "@wyniki_badania_results") ?: return JSONArray()
-        return try {
-            JSONArray(raw)
-        } catch (e: Exception) {
-            JSONArray()
+        // 1. Try SharedPreferences first (highest priority, always in sync)
+        val prefs = context.getSharedPreferences("WynikiBadanWidgets", Context.MODE_PRIVATE)
+        val prefsData = prefs.getString("results", null)
+        if (!prefsData.isNullOrBlank() && prefsData != "[]") {
+            try {
+                return JSONArray(prefsData)
+            } catch (e: Exception) {
+                // fallback
+            }
         }
+
+        // 2. Try AsyncStorage Room SQLite database
+        val roomData = querySqlite(context, "AsyncStorage", "Storage", "key", "value", "@wyniki_badania_results")
+        if (!roomData.isNullOrBlank()) {
+            try {
+                return JSONArray(roomData)
+            } catch (e: Exception) {
+                // fallback
+            }
+        }
+
+        // 3. Try legacy RKStorage SQLite database
+        val legacyData = querySqlite(context, "RKStorage", "catalystLocalStorage", "key", "value", "@wyniki_badania_results")
+        if (!legacyData.isNullOrBlank()) {
+            try {
+                return JSONArray(legacyData)
+            } catch (e: Exception) {
+                // fallback
+            }
+        }
+
+        return JSONArray()
+    }
+
+    private fun querySqlite(
+        context: Context,
+        dbName: String,
+        tableName: String,
+        keyColumn: String,
+        valueColumn: String,
+        targetKey: String
+    ): String? {
+        val dbFile = context.getDatabasePath(dbName)
+        if (!dbFile.exists()) return null
+
+        var db: SQLiteDatabase? = null
+        try {
+            db = SQLiteDatabase.openDatabase(dbFile.absolutePath, null, SQLiteDatabase.OPEN_READONLY)
+            val cursor = db.rawQuery("SELECT $valueColumn FROM $tableName WHERE $keyColumn = ?", arrayOf(targetKey))
+            if (cursor.moveToFirst()) {
+                val result = cursor.getString(0)
+                cursor.close()
+                return result
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            // Ignore database lock or schema differences
+        } finally {
+            try {
+                db?.close()
+            } catch (ignored: Exception) {}
+        }
+        return null
     }
 }

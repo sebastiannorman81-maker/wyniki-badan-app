@@ -15,8 +15,8 @@ export function useTestData() {
       setParameters(params);
       setResults(res);
       setLoading(false);
-      // Update widgets on startup to ensure sync
-      updateAndroidWidgets();
+      // Sync widgets on startup with fresh data
+      updateAndroidWidgets(params, res);
     })();
   }, []);
 
@@ -28,8 +28,8 @@ export function useTestData() {
     const updated = [...parameters, param];
     setParameters(updated);
     await saveParameters(updated);
-    updateAndroidWidgets();
-  }, [parameters]);
+    updateAndroidWidgets(updated, results);
+  }, [parameters, results]);
 
   const updateParameter = useCallback(async (oldName: string, param: TestParameter) => {
     const updatedParams = parameters.map(p => p.name === oldName ? param : p);
@@ -52,7 +52,7 @@ export function useTestData() {
     setParameters(updatedParams);
     setResults(updatedResults);
     await Promise.all([saveParameters(updatedParams), saveResults(updatedResults)]);
-    updateAndroidWidgets();
+    updateAndroidWidgets(updatedParams, updatedResults);
   }, [parameters, results]);
 
   const deleteParameter = useCallback(async (name: string) => {
@@ -61,7 +61,7 @@ export function useTestData() {
     setParameters(updatedParams);
     setResults(updatedResults);
     await Promise.all([saveParameters(updatedParams), saveResults(updatedResults)]);
-    updateAndroidWidgets();
+    updateAndroidWidgets(updatedParams, updatedResults);
   }, [parameters, results]);
 
   const reorderParameters = useCallback(async (fromIndex: number, toIndex: number) => {
@@ -70,8 +70,8 @@ export function useTestData() {
     updated.splice(toIndex, 0, removed);
     setParameters(updated);
     await saveParameters(updated);
-    updateAndroidWidgets();
-  }, [parameters]);
+    updateAndroidWidgets(updated, results);
+  }, [parameters, results]);
 
   // ========================
   // Result CRUD
@@ -81,29 +81,29 @@ export function useTestData() {
     const updated = [...results, result];
     setResults(updated);
     await saveResults(updated);
-    updateAndroidWidgets();
-  }, [results]);
+    updateAndroidWidgets(parameters, updated);
+  }, [parameters, results]);
 
   const addResults = useCallback(async (newResults: TestResult[]) => {
     const updated = [...results, ...newResults];
     setResults(updated);
     await saveResults(updated);
-    updateAndroidWidgets();
-  }, [results]);
+    updateAndroidWidgets(parameters, updated);
+  }, [parameters, results]);
 
   const updateResult = useCallback(async (id: string, updates: Partial<TestResult>) => {
     const updated = results.map(r => r.id === id ? { ...r, ...updates } : r);
     setResults(updated);
     await saveResults(updated);
-    updateAndroidWidgets();
-  }, [results]);
+    updateAndroidWidgets(parameters, updated);
+  }, [parameters, results]);
 
   const deleteResult = useCallback(async (id: string) => {
     const updated = results.filter(r => r.id !== id);
     setResults(updated);
     await saveResults(updated);
-    updateAndroidWidgets();
-  }, [results]);
+    updateAndroidWidgets(parameters, updated);
+  }, [parameters, results]);
 
   // ========================
   // Helpers
@@ -125,7 +125,7 @@ export function useTestData() {
     setParameters(params);
     setResults(res);
     await Promise.all([saveParameters(params), saveResults(res)]);
-    updateAndroidWidgets();
+    updateAndroidWidgets(params, res);
   }, []);
 
   return {

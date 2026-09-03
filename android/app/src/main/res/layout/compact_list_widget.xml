@@ -21,6 +21,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true" />
 
         <TextView
@@ -31,6 +32,7 @@
             android:textColor="#8b8da8"
             android:textSize="10sp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
@@ -67,6 +69,7 @@
                 android:layout_height="32dp"
                 android:background="#7c6cf0"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -74,7 +77,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/row1_accent"
+                android:layout_toEndOf="@id/row1_accent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_centerVertical="true">
                 
                 <TextView
@@ -100,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -110,7 +116,8 @@
                     android:textColor="#ffffff"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="6dp" />
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp" />
 
                 <TextView
                     android:id="@+id/row1_status"
@@ -120,9 +127,10 @@
                     android:textColor="#ffffff"
                     android:textSize="9sp"
                     android:textStyle="bold"
-                    android:background="@drawable/widget_status_badge"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="3dp" />
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -139,8 +147,9 @@
                 android:id="@+id/row2_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
-                android:background="#7c6cf0"
+                android:background="#22d3c5"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -148,7 +157,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/row2_accent"
+                android:layout_toEndOf="@id/row2_accent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_centerVertical="true">
                 
                 <TextView
@@ -174,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -184,7 +196,8 @@
                     android:textColor="#ffffff"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="6dp" />
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp" />
 
                 <TextView
                     android:id="@+id/row2_status"
@@ -194,9 +207,10 @@
                     android:textColor="#ffffff"
                     android:textSize="9sp"
                     android:textStyle="bold"
-                    android:background="@drawable/widget_status_badge"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="3dp" />
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -213,8 +227,9 @@
                 android:id="@+id/row3_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
-                android:background="#7c6cf0"
+                android:background="#00c48c"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -222,7 +237,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/row3_accent"
+                android:layout_toEndOf="@id/row3_accent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_centerVertical="true">
                 
                 <TextView
@@ -248,6 +265,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -258,7 +276,8 @@
                     android:textColor="#ffffff"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="6dp" />
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp" />
 
                 <TextView
                     android:id="@+id/row3_status"
@@ -268,9 +287,10 @@
                     android:textColor="#ffffff"
                     android:textSize="9sp"
                     android:textStyle="bold"
-                    android:background="@drawable/widget_status_badge"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="3dp" />
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -287,8 +307,9 @@
                 android:id="@+id/row4_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
-                android:background="#7c6cf0"
+                android:background="#ffb74d"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -296,7 +317,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/row4_accent"
+                android:layout_toEndOf="@id/row4_accent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_centerVertical="true">
                 
                 <TextView
@@ -322,6 +345,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -332,7 +356,8 @@
                     android:textColor="#ffffff"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="6dp" />
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp" />
 
                 <TextView
                     android:id="@+id/row4_status"
@@ -342,9 +367,10 @@
                     android:textColor="#ffffff"
                     android:textSize="9sp"
                     android:textStyle="bold"
-                    android:background="@drawable/widget_status_badge"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="3dp" />
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -360,8 +386,9 @@
                 android:id="@+id/row5_accent"
                 android:layout_width="3dp"
                 android:layout_height="32dp"
-                android:background="#7c6cf0"
+                android:background="#ff5c6c"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -369,7 +396,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/row5_accent"
+                android:layout_toEndOf="@id/row5_accent"
                 android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
                 android:layout_centerVertical="true">
                 
                 <TextView
@@ -395,6 +424,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -405,7 +435,8 @@
                     android:textColor="#ffffff"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="6dp" />
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp" />
 
                 <TextView
                     android:id="@+id/row5_status"
@@ -415,9 +446,10 @@
                     android:textColor="#ffffff"
                     android:textSize="9sp"
                     android:textStyle="bold"
-                    android:background="@drawable/widget_status_badge"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="3dp" />
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp" />
             </LinearLayout>
         </RelativeLayout>
 

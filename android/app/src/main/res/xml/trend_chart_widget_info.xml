@@ -4,6 +4,8 @@
     android:minHeight="110dp"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/trend_chart_widget"
+    android:previewLayout="@layout/trend_chart_widget"
+    android:description="@string/widget_trend_desc"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
 </appwidget-provider>

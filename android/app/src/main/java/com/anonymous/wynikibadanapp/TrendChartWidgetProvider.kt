@@ -78,19 +78,23 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
                         when (status) {
                             "NORMAL" -> {
                                 views.setTextViewText(R.id.param_status, "W normie")
-                                views.setInt(R.id.param_status, "setBackgroundResource", R.drawable.badge_normal)
+                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF00C48C.toInt())
+                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
                             }
                             "HIGH" -> {
                                 views.setTextViewText(R.id.param_status, "Powyżej normy")
-                                views.setInt(R.id.param_status, "setBackgroundResource", R.drawable.badge_high)
+                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFFFF5C6C.toInt())
+                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
                             }
                             "LOW" -> {
                                 views.setTextViewText(R.id.param_status, "Poniżej normy")
-                                views.setInt(R.id.param_status, "setBackgroundResource", R.drawable.badge_low)
+                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF74B9FF.toInt())
+                                views.setTextColor(R.id.param_status, 0xFFFFFFFF.toInt())
                             }
                             else -> {
                                 views.setTextViewText(R.id.param_status, "Brak normy")
-                                views.setInt(R.id.param_status, "setBackgroundResource", R.drawable.badge_unknown)
+                                views.setInt(R.id.param_status, "setBackgroundColor", 0xFF373950.toInt())
+                                views.setTextColor(R.id.param_status, 0xFFEEF0F6.toInt())
                             }
                         }
 
@@ -110,7 +114,7 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
                         }
                     }
                 }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
             }
 
@@ -170,7 +174,6 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
 
             // Parse points
             val vals = results.map { it.optDouble("value", 0.0) }
-            val dates = results.map { parseDate(it.optString("date", "")) }
 
             val minVal = Math.min(vals.minOrNull() ?: 0.0, getMinNormLimit(rangeStr) ?: Double.MAX_VALUE)
             val maxVal = Math.max(vals.maxOrNull() ?: 10.0, getMaxNormLimit(rangeStr) ?: Double.MIN_VALUE)
@@ -263,15 +266,6 @@ class TrendChartWidgetProvider : AppWidgetProvider() {
             }
 
             return bitmap
-        }
-
-        private fun parseDate(dateStr: String): Long {
-            return try {
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                sdf.parse(dateStr)?.time ?: 0L
-            } catch (e: Exception) {
-                0L
-            }
         }
 
         private fun getMinNormLimit(rangeStr: String): Double? {

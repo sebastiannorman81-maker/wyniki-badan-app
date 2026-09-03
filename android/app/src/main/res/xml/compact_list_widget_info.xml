@@ -4,6 +4,8 @@
     android:minHeight="180dp"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/compact_list_widget"
+    android:previewLayout="@layout/compact_list_widget"
+    android:description="@string/widget_compact_desc"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
 </appwidget-provider>
