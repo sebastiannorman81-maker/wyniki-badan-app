@@ -588,7 +588,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   formScroll: {
-    flex: 1,
+    maxHeight: 450,
+    flexGrow: 0,
+    flexShrink: 1,
     marginBottom: theme.spaceMd,
   },
   fileLabelBadge: {

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, TextInput, Platform, Alert
+  View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, TextInput, Platform, Alert, KeyboardAvoidingView
 } from 'react-native';
+import * as FileSystem from 'expo-file-system/legacy';
+import * as Sharing from 'expo-sharing';
 import { theme } from '../utils/theme';
 import { TestParameter, TestResult, CATEGORIES, CATEGORY_ICONS } from '../types';
 import { checkRangeStatus, getStatusInfo } from '../utils/rangeParser';
@@ -295,7 +297,7 @@ export default function ReportModal({
     }
   };
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     if (!previewHtml) return;
     if (Platform.OS === 'web') {
       const printWindow = window.open('', '_blank');
@@ -308,13 +310,32 @@ export default function ReportModal({
         }, 300);
       }
     } else {
-      Alert.alert('Drukuj Raport', 'Pobieranie PDF na urządzeniach mobilnych wymaga połączenia przeglądarkowego.');
+      try {
+        const safeStartDate = (startDate || 'calosc').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const safeEndDate = (endDate || 'do_teraz').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const fileName = `Raport_Badan_${safeStartDate}_${safeEndDate}.html`;
+        const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
+        await FileSystem.writeAsStringAsync(fileUri, previewHtml, {
+          encoding: FileSystem.EncodingType.UTF8,
+        });
+        if (await Sharing.isAvailableAsync()) {
+          await Sharing.shareAsync(fileUri, {
+            mimeType: 'text/html',
+            dialogTitle: 'Zapisz lub wydrukuj raport (PDF)',
+            UTI: 'public.html',
+          });
+        } else {
+          Alert.alert('Sukces', `Raport zapisano: ${fileUri}`);
+        }
+      } catch (err: any) {
+        Alert.alert('Błąd', `Nie udało się wyeksportować raportu: ${err?.message || err}`);
+      }
     }
   };
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={() => { setPreviewHtml(null); onClose(); }}>
-      <View style={styles.overlay}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.overlay}>
         <View style={[styles.modalCard, previewHtml ? { maxWidth: 900, maxHeight: '95%' } : {}]}>
           {/* Modal Header */}
           <View style={styles.headerRow}>
@@ -341,11 +362,29 @@ export default function ReportModal({
                   />
                 </View>
               ) : (
-                <ScrollView style={{ flex: 1 }}>
-                  <Text style={{ color: theme.textSecondary, fontSize: 13, textAlign: 'center', padding: 20 }}>
-                    Podgląd PDF jest dostępny w przeglądarce webowej.
-                  </Text>
-                </ScrollView>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 12 }}>
+                  <View style={{
+                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    borderWidth: 1,
+                    borderColor: theme.borderColor,
+                    borderRadius: 12,
+                    padding: 20,
+                    width: '100%',
+                    alignItems: 'center',
+                    gap: 12
+                  }}>
+                    <FileText color={accentColor} size={48} />
+                    <Text style={{ color: theme.textPrimary, fontSize: 17, fontWeight: '800', textAlign: 'center' }}>
+                      Raport PDF jest gotowy!
+                    </Text>
+                    <Text style={{ color: theme.textSecondary, fontSize: 13, textAlign: 'center', lineHeight: 20 }}>
+                      Zawiera {selectedParamNames.length} badań{patientName ? ` dla pacjenta: ${patientName}` : ''}.
+                    </Text>
+                    <Text style={{ color: theme.textMuted, fontSize: 12, textAlign: 'center', lineHeight: 18 }}>
+                      Dotknij poniższy przycisk, aby otworzyć raport w przeglądarce i wydrukować do PDF lub zapisać plik.
+                    </Text>
+                  </View>
+                </View>
               )}
 
               {/* Preview footer buttons */}
@@ -359,14 +398,16 @@ export default function ReportModal({
                   activeOpacity={0.8}
                 >
                   <FileText color={theme.textInverse} size={16} />
-                  <Text style={[styles.downloadBtnText, { color: theme.textInverse }]}>Pobierz PDF</Text>
+                  <Text style={[styles.downloadBtnText, { color: theme.textInverse }]}>
+                    {Platform.OS === 'web' ? 'Pobierz PDF' : 'Drukuj / Zapisz PDF'}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </>
           ) : (
             /* ===== EDITOR MODE ===== */
             <>
-              <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+              <ScrollView style={styles.editorScroll} contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
                 {/* Step 1: Date Range */}
                 <View style={styles.section}>
                   <Text style={styles.sectionHeader}>1. Wybierz zakres dat</Text>
@@ -501,7 +542,7 @@ export default function ReportModal({
             </>
           )}
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
@@ -517,6 +558,7 @@ const styles = StyleSheet.create({
   modalCard: {
     width: '100%',
     maxWidth: 640,
+    height: Platform.OS === 'web' ? undefined : '85%',
     maxHeight: '90%',
     backgroundColor: theme.bgSurface,
     borderRadius: theme.radiusLg,
@@ -524,6 +566,11 @@ const styles = StyleSheet.create({
     borderColor: theme.borderColor,
     padding: 20,
     gap: 16,
+  },
+  editorScroll: {
+    flex: 1,
+    flexGrow: 1,
+    flexShrink: 1,
   },
   headerRow: {
     flexDirection: 'row',
@@ -590,7 +637,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 6,
-    maxHeight: 140,
   },
   paramChip: {
     paddingHorizontal: 8,
